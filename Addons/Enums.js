@@ -5,10 +5,10 @@ const GuildEnums = Object.freeze({
 });
 
 const EmojiEnums = Object.freeze({
-    LOADING: '<a:loading:1101572328296562698>',
-    APPROVE: '<:approve:909509922696359936>',
-    REJECT: '<:reject:909509935237312513>',
-    VERIFY: '<a:verified:909492297165590578>'
+    LOADING: '<a:loading:1101990509632831590>',
+    APPROVE: '<a:approved:1107740358986715246>',
+    REJECT: '<a:rejected:1107741401896198254>',
+    VERIFY: '<a:verified:744957494840787075>'
 });
 
 const GifEnums = Object.freeze({
