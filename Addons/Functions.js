@@ -6,7 +6,7 @@ const moment = require('moment');
  * @returns returns a formatted data string: 13th May 2023 at 1:00 PM UTC
  */
 function convertMongoDateToMoment(mongoDate) {
-    return moment.utc(mongoDate).format('Do MMMM YYYY [at] h:m A z');
+    return moment.utc(mongoDate).format('Do MMMM YYYY [at] h:mm A z');
 }
 
 module.exports = {
