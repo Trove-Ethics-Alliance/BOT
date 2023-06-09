@@ -77,7 +77,13 @@ module.exports = {
                         .setName('guild-discord')
                         .setDescription('ID of the discord server.')
                         .setRequired(false)
-                )),
+                ))
+
+        // List subcommand
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('list')
+                .setDescription('List of certificates')),
 
     async execute(interaction, args) {
         try {
@@ -93,6 +99,7 @@ module.exports = {
                 case 'create': return createCert(interaction, reply); // /certificate create
                 case 'edit': return editCert(interaction, reply); // /certificate edit
                 case 'delete': return deleteCert(interaction, reply); // /certificate delete
+                case 'list': return listCert(interaction, reply); // /certificate list
                 default: return reply.edit({ content: 'This command is not available yet.\nPlease try again later.' });
             }
 
@@ -196,7 +203,7 @@ async function findCert(interaction, reply) {
  * @param {Interaction} interaction - The Discord interaction object.
  * @param {Interaction} reply - The interaction object to reply.
  * @returns {Promise<void>} - Embed message with selection menu and a button to edit a certificate.
- * @throws {InteractionError} - If there is an error during the creation process.
+ * @throws {InteractionError} - If there is an error during the editting process.
  */
 async function editCert(interaction, reply) {
     try {
@@ -263,7 +270,7 @@ async function editCert(interaction, reply) {
  * @param {Interaction} interaction - The Discord interaction object.
  * @param {Interaction} reply - The interaction object to reply.
  * @returns {Promise<void>} - Embed message with a button to delete a certificate.
- * @throws {InteractionError} - If there is an error during the creation process.
+ * @throws {InteractionError} - If there is an error during the deletion process.
  */
 async function deleteCert(interaction, reply) {
     try {
@@ -313,6 +320,29 @@ async function deleteCert(interaction, reply) {
         // Set the embed into the reply
         reply.edit({ content: '', embeds: [deleteEmbed], components: [new ActionRowBuilder().addComponents(certificateSubmitButtonBuilder.setLabel('Delete Certificate').setStyle(ButtonStyle.Danger))] });
 
+    } catch (error) {
+        new InteractionError(interaction, fileName).issue(error);
+    }
+}
+
+async function listCert(interaction, reply) {
+    try {
+
+        // Create List Embed
+        const listEmbed = new EmbedBuilder()
+            .setColor('Orange')
+            .setTitle('Club Certificate List')
+            .setDescription('Below here are the list of Club Certificates that are part of the Trove Ethics Alliance.')
+            .setAuthor({ name: 'LIST', iconURL: interaction.client.user.displayAvatarURL() });
+
+        const api = await apiCall('certificate/guild?list=true', 'GET');
+
+        // For every Club Certificate in the database, add a field to the embed with the Club name and its discord Server ID.
+        for (const club of api) {
+            listEmbed.addFields({ name: club.name, value: `Server ID: ${club.discord ? club.discord : 'Not Set'}` });
+        }
+
+        reply.edit({ content: '', embeds: [listEmbed] });
     } catch (error) {
         new InteractionError(interaction, fileName).issue(error);
     }
