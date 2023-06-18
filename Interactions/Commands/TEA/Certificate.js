@@ -7,6 +7,7 @@ const { apiCall } = require('../../../Addons/API');
 const { addCertificateAttributesMenu } = require('../../Menus/TEA/certificateAttributeMenu');
 const { certificateSubmitButtonBuilder } = require('../../Buttons/TEA/certificateSubmitButton');
 const { convertMongoDateToMoment } = require('../../../Addons/Functions');
+const { certificateApplyButtonBuilder } = require('../../Buttons/TEA/certificateApplyButtom');
 
 // Get file name.
 const fileName = path.basename(__filename).slice(0, -3).toLowerCase();
@@ -77,7 +78,14 @@ module.exports = {
                         .setName('guild-discord')
                         .setDescription('ID of the discord server.')
                         .setRequired(false)
-                )),
+                ))
+
+        // Test button
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('testbutton')
+                .setDescription('Test button')
+            ),
 
     async execute(interaction, args) {
         try {
@@ -93,6 +101,7 @@ module.exports = {
                 case 'create': return createCert(interaction, reply); // /certificate create
                 case 'edit': return editCert(interaction, reply); // /certificate edit
                 case 'delete': return deleteCert(interaction, reply); // /certificate delete
+                case 'testbutton': return testButton(interaction, reply);
                 default: return reply.edit({ content: 'This command is not available yet.\nPlease try again later.' });
             }
 
@@ -313,6 +322,14 @@ async function deleteCert(interaction, reply) {
         // Set the embed into the reply
         reply.edit({ content: '', embeds: [deleteEmbed], components: [new ActionRowBuilder().addComponents(certificateSubmitButtonBuilder.setLabel('Delete Certificate').setStyle(ButtonStyle.Danger))] });
 
+    } catch (error) {
+        new InteractionError(interaction, fileName).issue(error);
+    }
+}
+
+async function testButton(interaction, reply) {
+    try {
+        reply.edit({ content: '', components: [new ActionRowBuilder().addComponents(certificateApplyButtonBuilder)] });
     } catch (error) {
         new InteractionError(interaction, fileName).issue(error);
     }

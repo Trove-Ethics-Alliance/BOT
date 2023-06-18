@@ -96,9 +96,15 @@ module.exports = {
             // See if any fields still has Value Required, if it does then readyForSubmit = false.
             const readyForSubmit = !certEmbed.data.fields.some(fields => fields.value === '*Value required*');
 
-            // Determine whether it is a Modify or Create Embed.
-            let label = ['Modify Certificate', ButtonStyle.Primary];
-            if (interaction.message.embeds[0].author.name === 'CREATE') label = ['Create a Certificate', ButtonStyle.Success];
+            // Create variable for label
+            let label = [];
+
+            // Determine whether it is a Modify or Create or Apply Embed.
+            switch (interaction.message.embeds[0].author.name) {
+                case 'CREATE': label = ['Create a Certificate', ButtonStyle.Success]; break;
+                case 'MODIFY': label = ['Modify a Certificate', ButtonStyle.Primary]; break;
+                case 'APPLY': label = ['Apply for a Certificate', ButtonStyle.Secondary]; break;
+            }
 
             // If all Value Reuired fields are filled, then add submit button.
             const row = [new ActionRowBuilder().addComponents(selectMenuComponent)];
