@@ -44,19 +44,16 @@ class InteractionError {
 async function AxiosErrorHandler(error, interaction) {
 
     try {
-
-        // Destructure assignment
-        const { status, statusText } = error.response;
-
         // Make a string with the error message response to the user if error occurs in Axios Error.
         let errorResponseString = '';
 
         // Check if error object has my custom error data message.
         if (error.response.data?.message) {
+
             // Fill the string with the custom error data message.
-            errorResponseString = `🥶 Something went wrong with API\n> [${status} ${statusText}]\n> \`${error.response.data?.message}\``;
+            errorResponseString = `🥶 Something went wrong...\n> \`${error.response.data?.message}\``;
         } else { // Response that should be private.
-            errorResponseString = `🥶 Something went wrong with API\n> \`${error.message}\``;
+            errorResponseString = `🥶 Something went wrong with API.\n> \`${error.message}\``;
         }
 
         // Return a function to send reply using the string response made above.

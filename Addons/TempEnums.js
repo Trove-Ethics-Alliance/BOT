@@ -27,7 +27,12 @@ const NorthEnums = Object.freeze({
     }
 });
 
+const ScrambleEnums = Object.freeze({
+    NOTIF_CHANNEL_ID: '1137363924413583480'
+});
+
 module.exports = {
     LaezariaEnums,
-    NorthEnums
+    NorthEnums,
+    ScrambleEnums
 };
