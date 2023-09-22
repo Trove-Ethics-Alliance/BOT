@@ -56,7 +56,8 @@ async function start() {
 
                 async function registerGuildCommands() {
                     await registerGuildCmds(appCommands.TEA, process.env.TEA_GUILD_ID, 'TEA Main Server (Backend Commands)').then(log.info); // Register TEA's guild backend commands and then log.info the results.
-                    await registerGuildCmds(appCommands.TEST, process.env.TEST_GUILD_ID, 'Test Develop Server').then(log.info); // Register test guild commands and then log.info the results.
+                    await registerGuildCmds(appCommands.EVENT, process.env.EVENT_GUILD_ID, 'TEA Event Server').then(log.info); // Register TEA event guild commands and then log.info the results.
+                    // await registerGuildCmds(appCommands.TEST, process.env.TEST_GUILD_ID, 'Test Develop Server').then(log.info); // Register test guild commands and then log.info the results.
                 }
             })
             .catch(err => log.bug('[STARTUP] Error to register commands or login to Discord', err));

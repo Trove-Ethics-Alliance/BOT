@@ -11,7 +11,7 @@ const fileName = path.basename(__filename).slice(0, -3).toLowerCase();
 
 module.exports = {
     enabled: true,
-    guild: GuildEnums.TEA,
+    guild: GuildEnums.EVENT,
     data: new SlashCommandBuilder()
         .setName(fileName)
         .setDescription('Pick winners for scramble event')

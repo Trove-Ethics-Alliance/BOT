@@ -67,7 +67,7 @@ module.exports = {
             const winnerArray = [];
 
             // Push into the array formatted string with the winner data.
-            APIres.winners.every(winner => winnerArray.push(`* <@${winner.id}> with ${winner.points} points at ${winner.rank.toLowerCase()} rank!`))
+            APIres.winners.every(winner => winnerArray.push(`* <@${winner.id}> with ${winner.points} points`))
 
             // Variable with the content of the message to send.
             const content = `# Scramble event results!\n\n> \`${APIres.winners.length} winner(s) were randomly selected from the following rank(s): ${APIres.rank.join(', ')}\`\n\n# List of winners [${APIres.winners.length} out of ${APIres.participants}]\n> ${APIres.chances}% to win\n${winnerArray.join('\n')}`;

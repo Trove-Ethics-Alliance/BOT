@@ -1,5 +1,6 @@
 const GuildEnums = Object.freeze({
     GLOBAL: 'GLOBAL', // Global command enum.
+    EVENT: 'EVENT', // TEA Event server.
     TEA: 'TEA', // TEA's Backend command enum.
     TEST: 'TEST', // Test command enum.
 });

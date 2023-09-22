@@ -12,6 +12,7 @@ const { GuildEnums } = require('../Addons/Enums');
 const appCommands = {
     GLOBAL: [],
     TEA: [],
+    EVENT: [],
     TEST: []
 }; // Object with interaction commands arrays.
 
@@ -82,6 +83,11 @@ async function loadAppCmds(client) {
                         }
                         case GuildEnums.TEA: {
                             appCommands.TEA.push(slashCommand.data.toJSON());
+                            tableAddRow(slashCommand, file);
+                            break;
+                        }
+                        case GuildEnums.EVENT: {
+                            appCommands.EVENT.push(slashCommand.data.toJSON());
                             tableAddRow(slashCommand, file);
                             break;
                         }
